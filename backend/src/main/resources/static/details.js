@@ -268,9 +268,19 @@ function renderDetail(r) {
         }
     });
 
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
     // Show content
-    document.getElementById('detail-loading').style.display = 'none';
-    document.getElementById('detail-content').style.display = 'block';
+    const detailLoading = document.getElementById('detail-loading');
+    const detailContent = document.getElementById('detail-content');
+    if (detailLoading) detailLoading.style.display = 'none';
+    if (detailContent) detailContent.style.display = 'block';
 }
 
 function fallbackCopy(text) {
@@ -300,4 +310,36 @@ function escHtml(str) {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
+}
+
+/**
+ * Smart image selection based on cuisine.
+ */
+function getRestaurantImage(r) {
+    const cuisines = (r.cuisines || "").toLowerCase();
+    
+    const mapping = [
+        { key: 'pizza', img: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&q=80' },
+        { key: 'burger', img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=1200&q=80' },
+        { key: 'chinese', img: 'https://images.unsplash.com/photo-1525755662778-989d0524087e?w=1200&q=80' },
+        { key: 'indian', img: 'https://images.unsplash.com/photo-1517244681291-03973904c24b?w=1200&q=80' },
+        { key: 'cafe', img: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1200&q=80' },
+        { key: 'coffee', img: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200&q=80' },
+        { key: 'dessert', img: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=1200&q=80' },
+        { key: 'biryani', img: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=1200&q=80' },
+        { key: 'south indian', img: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=1200&q=80' },
+        { key: 'bar', img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1200&q=80' },
+        { key: 'bakery', img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1200&q=80' }
+    ];
+
+    for (const item of mapping) {
+        if (cuisines.includes(item.key)) return item.img;
+    }
+
+    const fallbacks = [
+        'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80',
+        'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1200&q=80',
+        'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&q=80'
+    ];
+    return fallbacks[(r.id || 0) % fallbacks.length];
 }
