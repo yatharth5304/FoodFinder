@@ -47,6 +47,12 @@ body {
     min-height: 100vh;
     font-size: 15px;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Smooth theme transitions for all major containers */
+header, main, footer, .search-card, .restaurant-card, .btn-location, .sort-btn, .page-btn {
+    transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
 }
 
 /* --- HERO / HEADER --- */
@@ -101,7 +107,61 @@ body {
 /* Detect Location Button in Nav */
 .nav-actions {
     display: flex;
-    gap: 12px;
+    align-items: center;
+    gap: 16px;
+}
+
+.btn-theme-toggle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    color: white;
+    padding: 0;
+}
+
+.btn-theme-toggle:hover {
+    transform: rotate(30deg) scale(1.15);
+    background: rgba(255,255,255,0.25);
+    border-color: rgba(255,255,255,0.5);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.btn-theme-toggle:active {
+    transform: scale(0.9);
+}
+
+.btn-theme-toggle svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 2.5px;
+}
+
+/* Light mode icon styling */
+.icon-moon {
+    color: #FFD700;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+}
+
+/* Dark mode button styling */
+[data-theme="dark"] .btn-theme-toggle {
+    background: rgba(0,0,0,0.4);
+    border-color: rgba(100,149,237,0.4);
+    box-shadow: 0 0 20px rgba(100,149,237,0.3);
+}
+
+[data-theme="dark"] .icon-sun {
+    color: #FFF;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
 }
 
 .btn-location {
@@ -1150,6 +1210,142 @@ body {
 
 
 
+/* Theme Toggle Icons */
+.icon-sun {
+    display: none;
+}
+
+[data-theme="dark"] .icon-sun {
+    display: block;
+}
+
+[data-theme="dark"] .icon-moon {
+    display: none;
+}
+
+/* Footer Enhancements */
+.footer {
+    background: #111;
+    color: #93959F;
+    padding: 80px 0 40px;
+    border-top: 1px solid #222;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    opacity: 0.3;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 60px;
+    margin-bottom: 60px;
+}
+
+.footer-col h4 {
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background: var(--primary);
+}
+
+.footer-col ul li {
+    margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+    color: #93959F;
+    font-size: 15px;
+    transition: var(--transition);
+}
+
+.footer-col ul li a:hover {
+    color: var(--primary);
+    padding-left: 4px;
+}
+
+.footer-description {
+    line-height: 1.8;
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+/* Tech Stack Badges */
+.footer-tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.tech-badge {
+    background: rgba(255, 255, 255, 0.05);
+    color: #686B78;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.tech-badge:hover {
+    background: rgba(255, 71, 101, 0.1);
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* Back to Top */
+.btn-back-to-top {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+    padding: 10px 24px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-back-to-top:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(255, 71, 101, 0.3);
+}
+/* Footer Bottom Layout */
+.footer-bottom {
+    border-top: 1px solid #222;
+    padding-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .footer-copy {
     color: #686B78;
     font-size: 14px;
@@ -1157,109 +1353,6 @@ body {
 
 .footer-copy strong {
     color: #FFFFFF;
-}
-
-/* Footer Quick Search */
-.footer-search {
-    display: flex;
-    margin-top: 20px;
-    border-radius: var(--radius-pill);
-    overflow: hidden;
-    border: 1px solid #333;
-}
-
-.footer-search-input {
-    flex: 1;
-    padding: 10px 16px;
-    background: #2A2A2A;
-    border: none;
-    color: white;
-    font-family: var(--font-body);
-    font-size: 14px;
-    outline: none;
-}
-
-.footer-search-input::placeholder {
-    color: #686B78;
-}
-
-.footer-search-input:focus {
-    background: #333;
-}
-
-.footer-search-btn {
-    padding: 10px 16px;
-    background: var(--primary);
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    transition: var(--transition);
-}
-
-.footer-search-btn:hover {
-    background: var(--primary-hover);
-}
-
-/* Footer Tech Stack Badges */
-.footer-tech-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 20px;
-}
-
-.tech-badge {
-    background: #2A2A2A;
-    color: #93959F;
-    padding: 4px 12px;
-    border-radius: var(--radius-pill);
-    font-size: 12px;
-    font-weight: 600;
-    border: 1px solid #333;
-    transition: var(--transition);
-}
-
-.tech-badge:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-}
-
-/* Footer Bottom Layout */
-.footer-bottom {
-    border-top: 1px solid #333333;
-    padding-top: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-@media (max-width: 600px) {
-    .footer-bottom {
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
-    }
-}
-
-/* Back to Top Button */
-.btn-back-to-top {
-    background: transparent;
-    border: 1px solid #555;
-    color: #93959F;
-    padding: 8px 20px;
-    border-radius: var(--radius-pill);
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    white-space: nowrap;
-}
-
-.btn-back-to-top:hover {
-    border-color: var(--primary);
-    color: var(--primary);
-    transform: translateY(-2px);
 }
 
 /* Footer Cuisine Link Hover */
@@ -1381,9 +1474,37 @@ body {
     --primary-light: #2A1A0E;
 }
 
+[data-theme="dark"] h1, 
+[data-theme="dark"] h2, 
+[data-theme="dark"] h3, 
+[data-theme="dark"] h4,
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .results-count,
+[data-theme="dark"] label {
+    color: #E8E8E8 !important;
+}
+
+[data-theme="dark"] p {
+    color: #A0A0A0;
+}
+
 /* ── Dark: Hero Section ──────────────────────── */
 [data-theme="dark"] .hero {
     border-bottom-color: #2A2A2A;
+}
+
+[data-theme="dark"] .hero-title,
+[data-theme="dark"] .hero-subtitle {
+    color: #FFFFFF; /* Ensure hero text stays visible on dark hero image */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+}
+
+[data-theme="dark"] .nav-name {
+    color: #FFFFFF;
+}
+
+[data-theme="dark"] .quick-filters-label {
+    color: #A0A0A0;
 }
 
 /* ── Dark: Search Card ───────────────────────── */
@@ -1423,9 +1544,11 @@ body {
 [data-theme="dark"] .quick-filter-btn {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.15);
+    color: #E8E8E8;
 }
 [data-theme="dark"] .quick-filter-btn:hover {
     background: rgba(255, 255, 255, 0.18);
+    color: #FFFFFF;
 }
 
 /* ── Dark: Location Button ───────────────────── */
@@ -1571,4 +1694,13 @@ body {
 }
 [data-theme="dark"] .footer-bottom {
     border-top-color: #222;
+}
+
+[data-theme="dark"] .tech-badge {
+    background: rgba(255, 255, 255, 0.1);
+    color: #E8E8E8;
+}
+
+[data-theme="dark"] .hero-bg {
+    filter: brightness(0.6) contrast(1.1);
 }

@@ -91,11 +91,19 @@ function bindEvents() {
     dom.detectLocBtn().addEventListener('click', detectLocation);
 
     // Dark mode toggle
-    document.getElementById('theme-toggle').addEventListener('click', () => {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        localStorage.setItem('foodfinder-theme', isDark ? 'light' : 'dark');
-    });
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('foodfinder-theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('foodfinder-theme', 'dark');
+            }
+        });
+    }
 
     // Inputs Enter & Autocomplete
     [ { input: dom.cuisineInput(), sugg: dom.cuisineSugg(), type: 'cuisine' },
@@ -158,20 +166,10 @@ function bindEvents() {
         });
     });
 
-    // Quick filter buttons — dish
-    document.querySelectorAll('.quick-filter-btn.dish-filter').forEach(btn => {
-        btn.addEventListener('click', () => {
-            dom.dishInput().value = btn.dataset.dish;
-            dom.cuisineInput().value = '';
-            handleSearch();
-        });
-    });
-
     // ─── FOOTER INTERACTIONS ────────────────────────────────────────────────
     function footerSearch(cuisine, dish, sort) {
-        if (cuisine) dom.cuisineInput().value = cuisine;
-        if (dish) dom.dishInput().value = dish;
-        if (!cuisine && !dish) { dom.cuisineInput().value = ''; dom.dishInput().value = ''; }
+        dom.cuisineInput().value = cuisine || '';
+        dom.dishInput().value = dish || '';
         if (sort) {
             state.sortBy = sort;
             dom.sortButtons().forEach(b => {
@@ -193,8 +191,8 @@ function bindEvents() {
 
     // Footer quick links
     const footerActions = {
-        'footer-top-rated': () => footerSearch('', '', 'rated'),
-        'footer-cheapest': () => footerSearch('', '', 'cheapest'),
+        'footer-top-rated': () => footerSearch('', '', 'rated'), // Global top rated
+        'footer-cheapest': () => footerSearch('', '', 'cheapest'), // Global cheapest
         'footer-cafes': () => footerSearch('Cafe', '', 'rated'),
         'footer-desserts': () => footerSearch('Desserts', '', 'rated'),
     };
@@ -203,23 +201,7 @@ function bindEvents() {
         if (el) el.addEventListener('click', (e) => { e.preventDefault(); handler(); });
     });
 
-    // Footer search bar
-    const footerInput = document.getElementById('footer-search-input');
-    const footerBtn = document.getElementById('footer-search-btn');
-    if (footerInput && footerBtn) {
-        footerBtn.addEventListener('click', () => {
-            if (footerInput.value.trim()) {
-                footerSearch('', footerInput.value.trim(), 'rated');
-                footerInput.value = '';
-            }
-        });
-        footerInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && footerInput.value.trim()) {
-                footerSearch('', footerInput.value.trim(), 'rated');
-                footerInput.value = '';
-            }
-        });
-    }
+
 
     // Back to top
     const backToTop = document.getElementById('back-to-top');
@@ -360,8 +342,9 @@ function handleSearch() {
     const cuisine = dom.cuisineInput().value.trim();
     const dish = dom.dishInput().value.trim();
 
-    // Validate at least one field or location
-    if (!cuisine && !dish && state.userLat == null) {
+    // Validate: At least one field, or location, OR if a special sort is active (from footer)
+    const isSpecialSearch = (state.sortBy === 'rated' || state.sortBy === 'cheapest');
+    if (!cuisine && !dish && state.userLat == null && !isSpecialSearch) {
         showStatus('Please enter a dish, cuisine, or detect location to search.', 'error');
         return;
     }

@@ -31,11 +31,19 @@ const CUISINE_EMOJIS = {
 
 document.addEventListener('DOMContentLoaded', () => {
     // Dark mode toggle
-    document.getElementById('theme-toggle').addEventListener('click', () => {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        localStorage.setItem('foodfinder-theme', isDark ? 'light' : 'dark');
-    });
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            if (isDark) {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('foodfinder-theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('foodfinder-theme', 'dark');
+            }
+        });
+    }
 
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');

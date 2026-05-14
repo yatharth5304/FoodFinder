@@ -1,231 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodFinder — Premium Dining Discovery</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽</text></svg>">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=2">
 </head>
+
 <body>
 
-<!-- HERO / SEARCH SECTION -->
-<header class="hero">
-    <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&h=700&fit=crop&q=80'); background-size: cover; background-position: center;">
-        <div class="hero-overlay" style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);"></div>
-    </div>
-    
-    <nav class="navbar">
-        <div class="nav-brand">
-            <span class="nav-logo">🍽</span>
-            <span class="nav-name">FoodFinder</span>
-        </div>
-        <div class="nav-actions">
-            <button class="btn-theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            </button>
-            <button class="btn-location" id="detect-location-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                <span id="location-btn-text">Detect My Location</span>
-            </button>
-        </div>
-    </nav>
-
-    <div class="hero-content">
-        <h1 class="hero-title">
-            Discover Exceptional<br>
-            <em>Culinary Experiences</em>
-        </h1>
-        <p class="hero-subtitle">Find the best restaurants, cafes, and bars near you</p>
-
-        <div class="search-card">
-            <div class="search-fields">
-                
-                <div class="search-field autocomplete-wrapper">
-                    <label for="dish-input">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-                        Dish (Optional)
-                    </label>
-                    <input id="dish-input" type="text" placeholder="Search dish (e.g. Biryani, Pizza, Dosa)" autocomplete="off">
-                    <div class="autocomplete-dropdown" id="dish-suggestions"></div>
-                </div>
-
-                <div class="search-divider"></div>
-
-                <div class="search-field autocomplete-wrapper">
-                    <label for="cuisine-input">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
-                        Cuisine (Optional)
-                    </label>
-                    <input id="cuisine-input" type="text" placeholder="Search cuisine (e.g. North Indian, Chinese)" autocomplete="off">
-                    <div class="autocomplete-dropdown" id="cuisine-suggestions"></div>
-                </div>
-
+    <!-- HERO / SEARCH SECTION -->
+    <header class="hero">
+        <div class="hero-bg"
+            style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&h=700&fit=crop&q=80'); background-size: cover; background-position: center;">
+            <div class="hero-overlay"
+                style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%);">
             </div>
+        </div>
 
-            <div class="search-actions">
-                <button class="btn-search" id="search-btn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    Search Restaurants
+        <nav class="navbar">
+            <div class="nav-brand">
+                <span class="nav-logo">🍽</span>
+                <span class="nav-name">FoodFinder</span>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                </button>
+                <button class="btn-location" id="detect-location-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span id="location-btn-text">Detect My Location</span>
                 </button>
             </div>
-        </div>
+        </nav>
 
-        <div class="quick-filters" id="quick-filters">
-            <span class="quick-filters-label">Cuisines:</span>
-            <button class="quick-filter-btn" data-cuisine="North Indian">🍛 North Indian</button>
-            <button class="quick-filter-btn" data-cuisine="Italian">🍕 Italian</button>
-            <button class="quick-filter-btn" data-cuisine="Chinese">🍜 Chinese</button>
-            <button class="quick-filter-btn" data-cuisine="Fast Food">🍔 Fast Food</button>
-            <button class="quick-filter-btn" data-cuisine="South Indian">🥘 South Indian</button>
-            <button class="quick-filter-btn" data-cuisine="Cafe">☕ Cafe</button>
-            <button class="quick-filter-btn" data-cuisine="Desserts">🍰 Desserts</button>
-            <button class="quick-filter-btn" data-cuisine="Mughlai">🥙 Mughlai</button>
-        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Discover Exceptional<br>
+                <em>Culinary Experiences</em>
+            </h1>
+            <p class="hero-subtitle">Find the best restaurants, cafes, and bars near you</p>
 
-        <div class="quick-filters">
-            <span class="quick-filters-label">Dishes:</span>
-            <button class="quick-filter-btn dish-filter" data-dish="Biryani">🍚 Biryani</button>
-            <button class="quick-filter-btn dish-filter" data-dish="Pizza">🍕 Pizza</button>
-            <button class="quick-filter-btn dish-filter" data-dish="Butter Chicken">🍗 Butter Chicken</button>
-            <button class="quick-filter-btn dish-filter" data-dish="Dosa">🫓 Dosa</button>
-            <button class="quick-filter-btn dish-filter" data-dish="Momos">🥟 Momos</button>
-            <button class="quick-filter-btn dish-filter" data-dish="Paneer">🧀 Paneer</button>
-            <button class="quick-filter-btn dish-filter" data-dish="Noodles">🍜 Noodles</button>
-            <button class="quick-filter-btn dish-filter" data-dish="Ice Cream">🍨 Ice Cream</button>
-        </div>
+            <div class="search-card">
+                <div class="search-fields">
 
-        <div class="location-status" id="location-status"></div>
-    </div>
-</header>
+                    <div class="search-field autocomplete-wrapper">
+                        <label for="dish-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M8 12h8M12 8v8" />
+                            </svg>
+                            Dish (Optional)
+                        </label>
+                        <input id="dish-input" type="text" placeholder="Search dish (e.g. Biryani, Pizza, Dosa)"
+                            autocomplete="off">
+                        <div class="autocomplete-dropdown" id="dish-suggestions"></div>
+                    </div>
 
-<!-- RESULTS SECTION -->
-<main class="main-content" id="results-section">
-    <div class="container">
+                    <div class="search-divider"></div>
 
-        <!-- Sort & Filter Bar -->
-        <div class="results-toolbar" id="results-toolbar" style="display:none">
-            <div class="results-count" id="results-count"></div>
-            <div class="sort-controls">
-                <span class="sort-label">Sort by</span>
-                <div class="sort-buttons">
-                    <button class="sort-btn active" data-sort="rated">⭐ Highest Rated</button>
-                    <button class="sort-btn" data-sort="cheapest">💰 Cheapest</button>
-                    <button class="sort-btn" data-sort="nearest" id="sort-nearest">📍 Nearest</button>
-                    <button class="sort-btn" data-sort="best">🏆 Best Match</button>
+                    <div class="search-field autocomplete-wrapper">
+                        <label for="cuisine-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                            </svg>
+                            Cuisine (Optional)
+                        </label>
+                        <input id="cuisine-input" type="text" placeholder="Search cuisine (e.g. North Indian, Chinese)"
+                            autocomplete="off">
+                        <div class="autocomplete-dropdown" id="cuisine-suggestions"></div>
+                    </div>
+
+                </div>
+
+                <div class="search-actions">
+                    <button class="btn-search" id="search-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                        Search Restaurants
+                    </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Skeleton Loading State -->
-        <div class="loading-state" id="loading-state" style="display:none">
-            <div class="restaurant-grid skeleton-grid">
-                <div class="skeleton-card"></div>
-                <div class="skeleton-card"></div>
-                <div class="skeleton-card"></div>
-                <div class="skeleton-card"></div>
-                <div class="skeleton-card"></div>
-                <div class="skeleton-card"></div>
+            <div class="quick-filters" id="quick-filters">
+                <span class="quick-filters-label">Popular:</span>
+                <button class="quick-filter-btn" data-cuisine="North Indian">🍛 North Indian</button>
+                <button class="quick-filter-btn" data-cuisine="Italian">🍕 Italian</button>
+                <button class="quick-filter-btn" data-cuisine="Chinese">🍜 Chinese</button>
+                <button class="quick-filter-btn" data-cuisine="Fast Food">🍔 Fast Food</button>
+                <button class="quick-filter-btn" data-cuisine="South Indian">🥘 South Indian</button>
+                <button class="quick-filter-btn" data-cuisine="Cafe">☕ Cafe</button>
+                <button class="quick-filter-btn" data-cuisine="Desserts">🍰 Desserts</button>
+                <button class="quick-filter-btn" data-cuisine="Mughlai">🥙 Mughlai</button>
             </div>
+
+            <div class="location-status" id="location-status"></div>
         </div>
+    </header>
 
-        <!-- Empty State -->
-        <div class="empty-state" id="empty-state" style="display:none">
-            <div class="empty-icon">🍽️</div>
-            <h3>No restaurants found</h3>
-            <p>Try adjusting your search criteria or searching for a different dish/cuisine.</p>
-            <button class="btn-clear" id="clear-search-btn">Clear Search</button>
-        </div>
+    <!-- RESULTS SECTION -->
+    <main class="main-content" id="results-section">
+        <div class="container">
 
-        <!-- Error State -->
-        <div class="error-state" id="error-state" style="display:none">
-            <div class="empty-icon">⚠️</div>
-            <h3>Something went wrong</h3>
-            <p id="error-message">Unable to fetch restaurants. Please try again.</p>
-            <button class="btn-search retry-btn" id="retry-btn">Try Again</button>
-        </div>
-
-        <!-- Restaurant Grid -->
-        <div class="restaurant-grid" id="restaurant-grid"></div>
-
-        <!-- Pagination -->
-        <div class="pagination" id="pagination" style="display:none"></div>
-    </div>
-</main>
-
-<footer class="footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-col brand-col">
-                <div class="footer-brand">
-                    <span class="nav-logo">🍽</span>
-                    <span class="nav-name">FoodFinder</span>
-                </div>
-                <p class="footer-description">Discover exceptional culinary experiences, hand-picked and curated just for you. Your ultimate dining companion.</p>
-                <div class="footer-search">
-                    <input type="text" id="footer-search-input" placeholder="Quick search a dish..." class="footer-search-input">
-                    <button id="footer-search-btn" class="footer-search-btn">🔍</button>
+            <!-- Sort & Filter Bar -->
+            <div class="results-toolbar" id="results-toolbar" style="display:none">
+                <div class="results-count" id="results-count"></div>
+                <div class="sort-controls">
+                    <span class="sort-label">Sort by</span>
+                    <div class="sort-buttons">
+                        <button class="sort-btn active" data-sort="rated">⭐ Highest Rated</button>
+                        <button class="sort-btn" data-sort="cheapest">💰 Cheapest</button>
+                        <button class="sort-btn" data-sort="nearest" id="sort-nearest">📍 Nearest</button>
+                        <button class="sort-btn" data-sort="best">🏆 Best Match</button>
+                    </div>
                 </div>
             </div>
-            
-            <div class="footer-col">
-                <h4>Popular Cuisines</h4>
-                <ul>
-                    <li><a href="#" class="footer-cuisine-link" data-cuisine="North Indian">🍛 North Indian</a></li>
-                    <li><a href="#" class="footer-cuisine-link" data-cuisine="Italian">🍕 Italian</a></li>
-                    <li><a href="#" class="footer-cuisine-link" data-cuisine="Chinese">🍜 Chinese</a></li>
-                    <li><a href="#" class="footer-cuisine-link" data-cuisine="South Indian">🥘 South Indian</a></li>
-                    <li><a href="#" class="footer-cuisine-link" data-cuisine="Mughlai">🥙 Mughlai</a></li>
-                </ul>
-            </div>
 
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#" id="footer-top-rated">⭐ Top Rated</a></li>
-                    <li><a href="#" id="footer-cheapest">💰 Budget Friendly</a></li>
-                    <li><a href="#" id="footer-cafes">☕ Cafes & Bakeries</a></li>
-                    <li><a href="#" id="footer-desserts">🍰 Desserts</a></li>
-                    <li><a href="https://github.com/yatharth5304/FoodFinder" target="_blank" rel="noopener noreferrer">📂 Source Code</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
-                <h4>Connect</h4>
-                <div class="social-links">
-                    <a href="mailto:yatharth0503@hotmail.com" aria-label="Email" target="_blank" rel="noopener noreferrer">
-                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                    </a>
-                    <a href="https://www.linkedin.com/in/yatharthmaharwade/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                    </a>
-                    <a href="https://www.instagram.com/yatharth__maharwade/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                    </a>
-                    <a href="https://github.com/yatharth5304" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                    </a>
-                </div>
-                <div class="footer-tech-stack">
-                    <span class="tech-badge">Java 17</span>
-                    <span class="tech-badge">Spring Boot</span>
-                    <span class="tech-badge">PostgreSQL</span>
-                    <span class="tech-badge">Vanilla JS</span>
+            <!-- Skeleton Loading State -->
+            <div class="loading-state" id="loading-state" style="display:none">
+                <div class="restaurant-grid skeleton-grid">
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
                 </div>
             </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p class="footer-copy">&copy; 2026 <strong>Yatharth Maharwade</strong>. Built with ❤️ and Spring Boot.</p>
-            <button class="btn-back-to-top" id="back-to-top" aria-label="Back to top">↑ Back to Top</button>
-        </div>
-    </div>
-</footer>
 
-<script src="app.js?v=2"></script>
+            <!-- Empty State -->
+            <div class="empty-state" id="empty-state" style="display:none">
+                <div class="empty-icon">🍽️</div>
+                <h3>No restaurants found</h3>
+                <p>Try adjusting your search criteria or searching for a different dish/cuisine.</p>
+                <button class="btn-clear" id="clear-search-btn">Clear Search</button>
+            </div>
+
+            <!-- Error State -->
+            <div class="error-state" id="error-state" style="display:none">
+                <div class="empty-icon">⚠️</div>
+                <h3>Something went wrong</h3>
+                <p id="error-message">Unable to fetch restaurants. Please try again.</p>
+                <button class="btn-search retry-btn" id="retry-btn">Try Again</button>
+            </div>
+
+            <!-- Restaurant Grid -->
+            <div class="restaurant-grid" id="restaurant-grid"></div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination" style="display:none"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col brand-col">
+                    <div class="footer-brand">
+                        <span class="nav-logo">🍽</span>
+                        <span class="nav-name">FoodFinder</span>
+                    </div>
+                    <p class="footer-description">Discover exceptional culinary experiences, hand-picked and curated
+                        just for you. Your ultimate dining companion.</p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Popular Cuisines</h4>
+                    <ul>
+                        <li><a href="#" class="footer-cuisine-link" data-cuisine="North Indian">🍛 North Indian</a></li>
+                        <li><a href="#" class="footer-cuisine-link" data-cuisine="Italian">🍕 Italian</a></li>
+                        <li><a href="#" class="footer-cuisine-link" data-cuisine="Chinese">🍜 Chinese</a></li>
+                        <li><a href="#" class="footer-cuisine-link" data-cuisine="South Indian">🥘 South Indian</a></li>
+                        <li><a href="#" class="footer-cuisine-link" data-cuisine="Mughlai">🥙 Mughlai</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#" id="footer-top-rated">⭐ Top Rated</a></li>
+                        <li><a href="#" id="footer-cheapest">💰 Budget Friendly</a></li>
+                        <li><a href="#" id="footer-cafes">☕ Cafes & Bakeries</a></li>
+                        <li><a href="#" id="footer-desserts">🍰 Desserts</a></li>
+                        <li><a href="https://github.com/yatharth5304/FoodFinder" target="_blank"
+                                rel="noopener noreferrer">📂 Source Code</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="mailto:yatharth0503@hotmail.com" aria-label="Email" target="_blank"
+                            rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/yatharthmaharwade/" aria-label="LinkedIn" target="_blank"
+                            rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                </path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/yatharth__maharwade/" aria-label="Instagram" target="_blank"
+                            rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="https://github.com/yatharth5304" aria-label="GitHub" target="_blank"
+                            rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="footer-tech-stack">
+                        <span class="tech-badge">Java 17</span>
+                        <span class="tech-badge">Spring Boot</span>
+                        <span class="tech-badge">PostgreSQL</span>
+                        <span class="tech-badge">Vanilla JS</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2026 <strong>Yatharth Maharwade</strong>. Built with ❤️ and Spring Boot.
+                </p>
+                <button class="btn-back-to-top" id="back-to-top" aria-label="Back to top">↑ Back to Top</button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js?v=2"></script>
 </body>
+
 </html>
