@@ -83,23 +83,7 @@ async function loadRestaurant(id) {
 function renderDetail(r) {
     document.title = `${r.restaurantName} — FoodFinder`;
 
-    const FOOD_IMAGES = [
-        'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&h=400&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=400&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&h=400&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&h=400&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&h=400&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&h=400&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=800&h=400&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=800&h=400&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=800&h=400&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=800&h=400&fit=crop&q=80'
-    ];
-
-    const cuisines = r.cuisineList || [];
-    const seed = r.id || 0;
-    const imageUrl = FOOD_IMAGES[seed % FOOD_IMAGES.length];
-    
+    const imageUrl = getRestaurantImage(r);
     const heroBanner = document.getElementById('detail-hero-banner');
     if (heroBanner) {
         heroBanner.style.backgroundImage = `url('${imageUrl}')`;
@@ -107,6 +91,7 @@ function renderDetail(r) {
 
     // Badges
     const badgesEl = document.getElementById('detail-badges');
+    const cuisines = r.cuisineList || [];
     const badges = [];
     if (cuisines.length > 0) {
         badges.push(...cuisines.slice(0, 3).map(c =>
