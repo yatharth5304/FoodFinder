@@ -5,6 +5,14 @@
 
 'use strict';
 
+// ─── DARK MODE (runs immediately to prevent flash) ──────────────────────────
+(function initTheme() {
+    const saved = localStorage.getItem('foodfinder-theme');
+    if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+})();
+
 // ─── CONFIG ─────────────────────────────────────────────────────────────────
 const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:8080'
@@ -82,6 +90,13 @@ function bindEvents() {
     dom.retryBtn().addEventListener('click', handleSearch);
     dom.detectLocBtn().addEventListener('click', detectLocation);
 
+    // Dark mode toggle
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('foodfinder-theme', isDark ? 'light' : 'dark');
+    });
+
     // Inputs Enter & Autocomplete
     [ { input: dom.cuisineInput(), sugg: dom.cuisineSugg(), type: 'cuisine' },
       { input: dom.dishInput(), sugg: dom.dishSugg(), type: 'dish' }
@@ -133,6 +148,86 @@ function bindEvents() {
             handleSearch();
         });
     });
+
+    // Quick filter buttons — cuisine
+    document.querySelectorAll('.quick-filter-btn:not(.dish-filter)').forEach(btn => {
+        btn.addEventListener('click', () => {
+            dom.cuisineInput().value = btn.dataset.cuisine;
+            dom.dishInput().value = '';
+            handleSearch();
+        });
+    });
+
+    // Quick filter buttons — dish
+    document.querySelectorAll('.quick-filter-btn.dish-filter').forEach(btn => {
+        btn.addEventListener('click', () => {
+            dom.dishInput().value = btn.dataset.dish;
+            dom.cuisineInput().value = '';
+            handleSearch();
+        });
+    });
+
+    // ─── FOOTER INTERACTIONS ────────────────────────────────────────────────
+    function footerSearch(cuisine, dish, sort) {
+        if (cuisine) dom.cuisineInput().value = cuisine;
+        if (dish) dom.dishInput().value = dish;
+        if (!cuisine && !dish) { dom.cuisineInput().value = ''; dom.dishInput().value = ''; }
+        if (sort) {
+            state.sortBy = sort;
+            dom.sortButtons().forEach(b => {
+                b.classList.toggle('active', b.dataset.sort === sort);
+            });
+        }
+        state.currentPage = 0;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => handleSearch(), 400);
+    }
+
+    // Footer cuisine links
+    document.querySelectorAll('.footer-cuisine-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            footerSearch(link.dataset.cuisine, '', 'rated');
+        });
+    });
+
+    // Footer quick links
+    const footerActions = {
+        'footer-top-rated': () => footerSearch('', '', 'rated'),
+        'footer-cheapest': () => footerSearch('', '', 'cheapest'),
+        'footer-cafes': () => footerSearch('Cafe', '', 'rated'),
+        'footer-desserts': () => footerSearch('Desserts', '', 'rated'),
+    };
+    Object.entries(footerActions).forEach(([id, handler]) => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('click', (e) => { e.preventDefault(); handler(); });
+    });
+
+    // Footer search bar
+    const footerInput = document.getElementById('footer-search-input');
+    const footerBtn = document.getElementById('footer-search-btn');
+    if (footerInput && footerBtn) {
+        footerBtn.addEventListener('click', () => {
+            if (footerInput.value.trim()) {
+                footerSearch('', footerInput.value.trim(), 'rated');
+                footerInput.value = '';
+            }
+        });
+        footerInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && footerInput.value.trim()) {
+                footerSearch('', footerInput.value.trim(), 'rated');
+                footerInput.value = '';
+            }
+        });
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 }
 
 function restoreStateFromUrl() {
@@ -365,16 +460,16 @@ function createRestaurantCard(r, index) {
     const location = [r.locality, r.city].filter(Boolean).join(', ') || r.address || 'N/A';
 
     const FOOD_IMAGES = [
-        'https://picsum.photos/seed/dish1/400/300',
-        'https://picsum.photos/seed/dish2/400/300',
-        'https://picsum.photos/seed/dish3/400/300',
-        'https://picsum.photos/seed/dish4/400/300',
-        'https://picsum.photos/seed/dish5/400/300',
-        'https://picsum.photos/seed/dish6/400/300',
-        'https://picsum.photos/seed/dish7/400/300',
-        'https://picsum.photos/seed/dish8/400/300',
-        'https://picsum.photos/seed/dish9/400/300',
-        'https://picsum.photos/seed/dish10/400/300'
+        'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=300&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=300&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=300&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400&h=300&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&h=300&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400&h=300&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=400&h=300&fit=crop&q=80'
     ];
 
     const seed = r.id || index;

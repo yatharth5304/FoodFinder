@@ -5,6 +5,14 @@
 
 'use strict';
 
+// ─── DARK MODE (runs immediately to prevent flash) ──────────────────────────
+(function initTheme() {
+    const saved = localStorage.getItem('foodfinder-theme');
+    if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+})();
+
 const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:8080'
     : '';
@@ -22,6 +30,13 @@ const CUISINE_EMOJIS = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Dark mode toggle
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('foodfinder-theme', isDark ? 'light' : 'dark');
+    });
+
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
@@ -61,16 +76,16 @@ function renderDetail(r) {
     document.title = `${r.restaurantName} — FoodFinder`;
 
     const FOOD_IMAGES = [
-        'https://picsum.photos/seed/dish1/800/400',
-        'https://picsum.photos/seed/dish2/800/400',
-        'https://picsum.photos/seed/dish3/800/400',
-        'https://picsum.photos/seed/dish4/800/400',
-        'https://picsum.photos/seed/dish5/800/400',
-        'https://picsum.photos/seed/dish6/800/400',
-        'https://picsum.photos/seed/dish7/800/400',
-        'https://picsum.photos/seed/dish8/800/400',
-        'https://picsum.photos/seed/dish9/800/400',
-        'https://picsum.photos/seed/dish10/800/400'
+        'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&h=400&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=400&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&h=400&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&h=400&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&h=400&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&h=400&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=800&h=400&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=800&h=400&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=800&h=400&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=800&h=400&fit=crop&q=80'
     ];
 
     const cuisines = r.cuisineList || [];

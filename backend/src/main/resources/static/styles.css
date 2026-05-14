@@ -350,6 +350,51 @@ body {
     font-weight: 700;
 }
 
+/* --- QUICK FILTER BUTTONS --- */
+.quick-filters {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+    animation: fadeUp 0.6s 0.3s ease both;
+    justify-content: center;
+}
+
+.quick-filters-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.5px;
+}
+
+.quick-filter-btn {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: white;
+    padding: 8px 18px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.quick-filter-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.quick-filter-btn:active {
+    transform: translateY(0);
+}
+
 /* Location Status */
 .location-status {
     margin-top: 16px;
@@ -1103,11 +1148,7 @@ body {
     filter: brightness(1.2);
 }
 
-.footer-bottom {
-    border-top: 1px solid #333333;
-    padding-top: 24px;
-    text-align: center;
-}
+
 
 .footer-copy {
     color: #686B78;
@@ -1116,6 +1157,116 @@ body {
 
 .footer-copy strong {
     color: #FFFFFF;
+}
+
+/* Footer Quick Search */
+.footer-search {
+    display: flex;
+    margin-top: 20px;
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    border: 1px solid #333;
+}
+
+.footer-search-input {
+    flex: 1;
+    padding: 10px 16px;
+    background: #2A2A2A;
+    border: none;
+    color: white;
+    font-family: var(--font-body);
+    font-size: 14px;
+    outline: none;
+}
+
+.footer-search-input::placeholder {
+    color: #686B78;
+}
+
+.footer-search-input:focus {
+    background: #333;
+}
+
+.footer-search-btn {
+    padding: 10px 16px;
+    background: var(--primary);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+.footer-search-btn:hover {
+    background: var(--primary-hover);
+}
+
+/* Footer Tech Stack Badges */
+.footer-tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.tech-badge {
+    background: #2A2A2A;
+    color: #93959F;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid #333;
+    transition: var(--transition);
+}
+
+.tech-badge:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* Footer Bottom Layout */
+.footer-bottom {
+    border-top: 1px solid #333333;
+    padding-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media (max-width: 600px) {
+    .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+}
+
+/* Back to Top Button */
+.btn-back-to-top {
+    background: transparent;
+    border: 1px solid #555;
+    color: #93959F;
+    padding: 8px 20px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.btn-back-to-top:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* Footer Cuisine Link Hover */
+.footer-cuisine-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 
 /* --- RESPONSIVE DESIGN --- */
@@ -1165,4 +1316,259 @@ body {
     .restaurant-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* ============================================
+   DARK MODE — Toggle Button & Theme
+   ============================================ */
+
+/* Toggle Button */
+.btn-theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: var(--transition);
+    color: white;
+}
+
+.btn-theme-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-theme-toggle .icon-sun {
+    display: none;
+}
+
+.btn-theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: rotate(15deg);
+}
+
+/* Details page toggle override */
+.details-page .btn-theme-toggle {
+    border-color: var(--border-color);
+    background: var(--bg-color);
+    color: var(--text-primary);
+}
+.details-page .btn-theme-toggle:hover {
+    background: var(--border-color);
+}
+
+/* Dark Mode Active — swap icons */
+[data-theme="dark"] .btn-theme-toggle .icon-moon { display: none; }
+[data-theme="dark"] .btn-theme-toggle .icon-sun { display: block; }
+
+/* ── Dark Theme Variables ────────────────────── */
+[data-theme="dark"] {
+    --bg-color: #0D0D0D;
+    --surface: #1A1A1A;
+    --text-primary: #E8E8E8;
+    --text-secondary: #A0A0A0;
+    --text-tertiary: #6B6B6B;
+    --border-color: #2A2A2A;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+    --primary-light: #2A1A0E;
+}
+
+/* ── Dark: Hero Section ──────────────────────── */
+[data-theme="dark"] .hero {
+    border-bottom-color: #2A2A2A;
+}
+
+/* ── Dark: Search Card ───────────────────────── */
+[data-theme="dark"] .search-card {
+    background: #1A1A1A;
+    border-color: #333;
+}
+[data-theme="dark"] .autocomplete-wrapper:hover {
+    background: #222;
+}
+[data-theme="dark"] .autocomplete-wrapper:focus-within {
+    background: #1A1A1A;
+}
+[data-theme="dark"] .search-field input {
+    color: #E8E8E8;
+}
+[data-theme="dark"] .search-field input::placeholder {
+    color: #555;
+}
+[data-theme="dark"] .search-divider {
+    background: #333;
+}
+[data-theme="dark"] .autocomplete-dropdown {
+    background: #1A1A1A;
+    border-color: #333;
+}
+[data-theme="dark"] .suggestion-item {
+    color: #E8E8E8;
+    border-bottom-color: #2A2A2A;
+}
+[data-theme="dark"] .suggestion-item:hover,
+[data-theme="dark"] .suggestion-item.active {
+    background: #222;
+}
+
+/* ── Dark: Quick Filters ─────────────────────── */
+[data-theme="dark"] .quick-filter-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+[data-theme="dark"] .quick-filter-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+/* ── Dark: Location Button ───────────────────── */
+[data-theme="dark"] .btn-location {
+    background: #1A1A1A;
+    color: #E8E8E8;
+    border-color: #333;
+}
+[data-theme="dark"] .btn-location.active {
+    background: #2A1A0E;
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* ── Dark: Restaurant Cards ──────────────────── */
+[data-theme="dark"] .restaurant-card {
+    background: #1A1A1A;
+}
+[data-theme="dark"] .restaurant-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+[data-theme="dark"] .card-body {
+    color: #E8E8E8;
+}
+[data-theme="dark"] .card-name {
+    color: #E8E8E8;
+}
+[data-theme="dark"] .card-cuisines {
+    color: #A0A0A0;
+}
+[data-theme="dark"] .card-footer {
+    border-top-color: #2A2A2A;
+}
+[data-theme="dark"] .card-price {
+    color: #A0A0A0;
+}
+[data-theme="dark"] .card-location {
+    color: #6B6B6B;
+}
+[data-theme="dark"] .cuisine-tag {
+    background: #2A1A0E;
+}
+[data-theme="dark"] .card-distance {
+    background: rgba(26, 26, 26, 0.9);
+    color: #E8E8E8;
+}
+[data-theme="dark"] .card-image {
+    background: #222;
+}
+
+/* ── Dark: Skeleton Loader ───────────────────── */
+[data-theme="dark"] .skeleton-card { background: #1A1A1A; }
+[data-theme="dark"] .skeleton-card::before,
+[data-theme="dark"] .skeleton-card::after {
+    background: linear-gradient(to right, #222 8%, #2A2A2A 18%, #222 33%);
+}
+
+/* ── Dark: Sort & Toolbar ────────────────────── */
+[data-theme="dark"] .sort-btn {
+    background: #1A1A1A;
+    border-color: #333;
+    color: #A0A0A0;
+}
+[data-theme="dark"] .sort-btn:hover {
+    border-color: #555;
+    color: #E8E8E8;
+}
+[data-theme="dark"] .sort-btn.active {
+    background: #E8E8E8;
+    border-color: #E8E8E8;
+    color: #0D0D0D;
+}
+
+/* ── Dark: Pagination ────────────────────────── */
+[data-theme="dark"] .page-btn {
+    background: #1A1A1A;
+    border-color: #333;
+    color: #A0A0A0;
+}
+[data-theme="dark"] .page-btn:hover,
+[data-theme="dark"] .page-btn.active {
+    background: #E8E8E8;
+    border-color: #E8E8E8;
+    color: #0D0D0D;
+}
+
+/* ── Dark: Empty & Error States ──────────────── */
+[data-theme="dark"] .btn-clear {
+    background: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+}
+[data-theme="dark"] .btn-clear:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* ── Dark: Details Page ──────────────────────── */
+[data-theme="dark"] .details-page .navbar {
+    background: #1A1A1A;
+    border-bottom-color: #2A2A2A;
+}
+[data-theme="dark"] .details-page .nav-name {
+    color: #E8E8E8;
+}
+[data-theme="dark"] .nav-back {
+    color: #A0A0A0;
+}
+[data-theme="dark"] .detail-section {
+    background: #1A1A1A;
+    border-color: #2A2A2A;
+}
+[data-theme="dark"] .detail-about p {
+    color: #A0A0A0;
+}
+[data-theme="dark"] .menu-tag {
+    background: #222;
+    border-color: #333;
+    color: #E8E8E8;
+}
+[data-theme="dark"] .menu-tag:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+[data-theme="dark"] .sidebar-card {
+    background: #1A1A1A;
+    border-color: #2A2A2A;
+}
+[data-theme="dark"] .glass-sidebar {
+    background: rgba(26, 26, 26, 0.85);
+}
+[data-theme="dark"] .info-list li {
+    border-bottom-color: #2A2A2A;
+}
+[data-theme="dark"] .map-placeholder {
+    background: #222;
+    border-color: #333;
+}
+
+/* ── Dark: Footer ────────────────────────────── */
+[data-theme="dark"] .footer {
+    background: #0A0A0A;
+}
+[data-theme="dark"] .footer-bottom {
+    border-top-color: #222;
 }
