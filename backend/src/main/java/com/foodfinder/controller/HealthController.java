@@ -1,4 +1,4 @@
-package com.jsp.portfolio.controller;
+package com.foodfinder.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
